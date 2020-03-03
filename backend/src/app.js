@@ -2,7 +2,9 @@
 // const routes = require('./routes');
 import express from 'express';
 import mongoose from 'mongoose';
+import cors from 'cors';
 import routes from './routes';
+import path from 'path';
 
 class App{
 
@@ -19,6 +21,13 @@ class App{
   }
 
   middleware(){
+    this.server.use(cors());
+
+    this.server.use(
+      '/files',
+      express.static(path.resolve(__dirname, '..', 'uploader'))
+    )
+
     this.server.use(express.json());
   }
 
